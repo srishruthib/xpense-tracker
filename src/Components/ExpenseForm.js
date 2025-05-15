@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import "./ExpenseForm.css";
 
-Modal.setAppElement("#root");
-
 const ExpenseForm = ({ addExpense }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [formData, setFormData] = useState({
@@ -14,7 +12,10 @@ const ExpenseForm = ({ addExpense }) => {
     });
 
     const openModal = () => setModalIsOpen(true);
-    const closeModal = () => setModalIsOpen(false);
+    const closeModal = () => {
+        setModalIsOpen(false);
+        setFormData({ title: "", price: "", category: "", date: "" });
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -100,6 +101,9 @@ const ExpenseForm = ({ addExpense }) => {
                     />
                     <button type="submit" data-testid="submit-expense">
                         Add Expense
+                    </button>
+                    <button type="button" onClick={closeModal}>
+                        Cancel
                     </button>
                 </form>
             </Modal>

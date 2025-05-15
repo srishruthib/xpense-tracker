@@ -1,4 +1,3 @@
-// src/Components/SummaryChart.js
 import React from "react";
 import {
     PieChart,
@@ -22,14 +21,14 @@ const SummaryChart = ({ expenses }) => {
 
     expenses.forEach((expense) => {
         const category = data.find((item) => item.name === expense.category);
-        if (category) category.value += Number(expense.amount);
+        if (category) category.value += Number(expense.price);
     });
 
     const filteredData = data.filter((item) => item.value > 0);
 
     return (
         <div className="summary-chart">
-            <h3>Expense Summary</h3>
+            <h2>Expense Summary</h2>
             {filteredData.length ? (
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
@@ -44,7 +43,7 @@ const SummaryChart = ({ expenses }) => {
                                 <Cell key={index} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
-                        <Tooltip />
+                        <Tooltip formatter={(value) => `$${value.toFixed(2)}`} />
                         <Legend />
                     </PieChart>
                 </ResponsiveContainer>

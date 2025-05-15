@@ -1,5 +1,19 @@
+.expense-list-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
 .expense-list {
-    margin: 20px;
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.expense-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .expense-item {
@@ -11,31 +25,86 @@
     border-radius: 6px;
 }
 
-.action-buttons button {
+.expense-item button {
     margin-left: 10px;
     padding: 5px 10px;
     border: none;
-    background-color: #1976d2;
     color: white;
     border-radius: 4px;
     cursor: pointer;
 }
 
-.action-buttons button:last-child {
+.expense-item button[data-testid="edit-button"] {
+    background-color: #1976d2;
+}
+
+.expense-item button[data-testid="delete-button"] {
     background-color: #e53935;
 }
 
-.edit-modal {
+.expense-modal {
     background: white;
     padding: 20px;
-    width: 300px;
-    margin: auto;
+    max-width: 500px;
+    margin: 50px auto;
     border-radius: 8px;
+    outline: none;
 }
 
-.edit-form input,
-.edit-form select {
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.expense-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.expense-form input,
+.expense-form select {
     width: 100%;
     margin: 10px 0;
     padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.expense-form button {
+    padding: 10px;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.expense-form button[type="submit"] {
+    background-color: #28a745;
+}
+
+.expense-form button[type="button"] {
+    background-color: #e53935;
+}
+
+@media (max-width: 768px) {
+    .expense-item {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+
+    .expense-item button {
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .expense-modal {
+        width: 90%;
+        margin: 20px auto;
+    }
 }

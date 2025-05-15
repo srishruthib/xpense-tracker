@@ -14,12 +14,12 @@ const Wallet = ({ balance, addIncome }) => {
         }
         addIncome(amount);
         setIncome("");
-        setShowForm(false); // hide after submit
+        setShowForm(false);
     };
 
     return (
         <div className="wallet-container">
-            <h2>Wallet Balance: ₹{balance.toFixed(2)}</h2>
+            <h2>Wallet Balance: ${balance.toFixed(2)}</h2>
 
             <button
                 type="button"
@@ -30,7 +30,7 @@ const Wallet = ({ balance, addIncome }) => {
             </button>
 
             {showForm && (
-                <form onSubmit={handleSubmit} data-testid="income-form">
+                <form onSubmit={handleSubmit} data-testid="income-form" className="income-form">
                     <input
                         type="number"
                         placeholder="Income Amount"
@@ -38,7 +38,9 @@ const Wallet = ({ balance, addIncome }) => {
                         onChange={(e) => setIncome(e.target.value)}
                         data-testid="income-input"
                     />
-                    <button type="submit" data-testid="submit-income">Add Balance</button>
+                    <button type="submit" data-testid="submit-income">
+                        Add Balance
+                    </button>
                 </form>
             )}
         </div>
