@@ -1,8 +1,33 @@
 /* src/Components/SummaryChart.css */
 .summary-chart {
-    margin: 2rem 0;
-    padding: 1rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.summary-chart h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.summary-chart p {
+    font-size: 1rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .summary-chart {
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .summary-chart h2 {
+        font-size: 1.25rem;
+    }
 }

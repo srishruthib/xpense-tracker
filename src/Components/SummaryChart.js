@@ -28,7 +28,7 @@ const SummaryChart = ({ expenses }) => {
 
     return (
         <div className="summary-chart">
-            <h2>Expense Summary</h2>
+            <h2>Expenses</h2>
             {filteredData.length ? (
                 <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
