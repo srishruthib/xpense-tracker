@@ -30,7 +30,7 @@ const ExpenseList = ({ expenses, deleteExpense, editExpense }) => {
 
     return (
         <div className="expense-list-container">
-            <h2>Transactions</h2> {/* Changed from "Expenses" to "Transactions" */}
+            <h2>Expenses</h2>
             {expenses.length === 0 ? (
                 <p>No expenses to display</p>
             ) : (
@@ -109,6 +109,27 @@ const ExpenseList = ({ expenses, deleteExpense, editExpense }) => {
                     </button>
                 </form>
             </Modal>
+
+            {/* Expense Summary Section */}
+            <div className="expense-summary">
+                <h2>Expense Summary</h2>
+                {expenses.length === 0 ? (
+                    <p>No expenses to show.</p>
+                ) : (
+                    <div>
+                        {Object.entries(
+                            expenses.reduce((summary, expense) => {
+                                summary[expense.category] = (summary[expense.category] || 0) + Number(expense.price);
+                                return summary;
+                            }, {})
+                        ).map(([category, total]) => (
+                            <p key={category} data-testid="expense-summary">
+                                {category}: ₹{total}
+                            </p>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
