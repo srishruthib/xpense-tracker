@@ -30,7 +30,7 @@ const ExpenseList = ({ expenses, deleteExpense, editExpense }) => {
 
     return (
         <div className="expense-list-container">
-            <h2>Expenses</h2>
+            <h2>Transactions</h2> {/* Changed from "Expenses" to "Transactions" */}
             {expenses.length === 0 ? (
                 <p>No expenses to display</p>
             ) : (
