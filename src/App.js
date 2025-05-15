@@ -6,46 +6,68 @@ import ExpenseList from "./Components/ExpenseList";
 import SummaryChart from "./Components/SummaryChart";
 import "./App.css";
 
+// Optional: Default expenses if needed
+const defaultExpenses = [];
+
 function App() {
+  // Ensure default data for first-time visitors
+  useEffect(() => {
+    if (!localStorage.getItem("walletBalance")) {
+      localStorage.setItem("walletBalance", 5000);
+    }
+    if (!localStorage.getItem("expenses")) {
+      localStorage.setItem("expenses", JSON.stringify(defaultExpenses));
+    }
+  }, []);
+
   const [balance, setBalance] = useState(() => {
     return Number(localStorage.getItem("walletBalance")) || 5000;
   });
+
   const [expenses, setExpenses] = useState(() => {
     return JSON.parse(localStorage.getItem("expenses")) || [];
   });
 
+  // Sync balance to localStorage
   useEffect(() => {
     localStorage.setItem("walletBalance", balance);
   }, [balance]);
 
+  // Sync expenses to localStorage
   useEffect(() => {
     localStorage.setItem("expenses", JSON.stringify(expenses));
   }, [expenses]);
 
+  // Add income
   const addIncome = (amount) => {
     setBalance((prev) => prev + amount);
   };
 
+  // Add expense with validation
   const addExpense = (expense) => {
     if (expense.price > balance) {
       alert("Insufficient wallet balance.");
       return;
     }
-    setExpenses([...expenses, expense]);
-    setBalance(balance - expense.price);
+    setExpenses((prev) => [...prev, expense]);
+    setBalance((prev) => prev - expense.price);
   };
 
+  // Delete expense
   const deleteExpense = (id) => {
     const expense = expenses.find((e) => e.id === id);
-    setExpenses(expenses.filter((e) => e.id !== id));
-    setBalance(balance + expense.price);
+    setExpenses((prev) => prev.filter((e) => e.id !== id));
+    setBalance((prev) => prev + expense.price);
   };
 
+  // Edit expense
   const editExpense = (updatedExpense) => {
     const oldExpense = expenses.find((e) => e.id === updatedExpense.id);
-    const newExpenses = expenses.map((e) => (e.id === updatedExpense.id ? updatedExpense : e));
+    const newExpenses = expenses.map((e) =>
+      e.id === updatedExpense.id ? updatedExpense : e
+    );
     setExpenses(newExpenses);
-    setBalance(balance + oldExpense.price - updatedExpense.price);
+    setBalance((prev) => prev + oldExpense.price - updatedExpense.price);
   };
 
   return (
@@ -64,5 +86,3 @@ function App() {
 }
 
 export default App;
-
-// Other component files like Wallet.js, ExpenseForm.js, ExpenseList.js, SummaryChart.js, TrendsChart.js need to be created separately with proper functionality as per requirements.
